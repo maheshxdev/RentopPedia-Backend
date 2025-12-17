@@ -20,7 +20,7 @@ const server = http.createServer(app); // 👈 wrap express with HTTP server
 // Setup Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: true,
     methods: ["GET", "POST"],
     credentials: true,
   },
