@@ -33,8 +33,11 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log(username,password);
 
     const user = await User.findOne({ username });
+    console.log(user);
+
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -47,6 +50,8 @@ router.post("/login", async (req, res) => {
       JWT_SECRET,
       { expiresIn: "7d" }
     );
+    console.log(token);
+
 
     // Send token as httpOnly cookie
     // match cookie lifetime with JWT expiration
