@@ -31,7 +31,7 @@ const PropertySchema = new mongoose.Schema({
       comment: String,
     },
   ],
-  rentRequests: [RentRequestSchema], // ✅ add this line
+  rentRequests: [RentRequestSchema], 
 });
 
 module.exports = mongoose.model("Property", PropertySchema);

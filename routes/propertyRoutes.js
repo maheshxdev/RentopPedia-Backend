@@ -119,7 +119,7 @@ router.post("/add", verifyToken, upload.array("images"), async (req, res) => {
     });
 
     await newProperty.save();
-    global._io.emit("new-property", newProperty);
+    // global._io.emit("new-property", newProperty);
     res.status(201).json(newProperty);
   } catch (err) {
     console.error(err);
@@ -166,13 +166,13 @@ router.post("/:id/rent-request", verifyToken, async (req, res) => {
     await property.save();
 
     // Emit socket to owner
-    global._io.emit("rent-request", {
-      ownerUsername: property.ownerUserID,
-      requester: req.user.username,
-      productId: property._id,
-      days,
-      totalAmount,
-    });
+    // global._io.emit("rent-request", {
+    //   ownerUsername: property.ownerUserID,
+    //   requester: req.user.username,
+    //   productId: property._id,
+    //   days,
+    //   totalAmount,
+    // });
 
     res.json({ message: "Rent request sent!", rentRequest });
   } catch (err) {
@@ -202,12 +202,12 @@ router.post("/:id/rent-request/:reqId/accept", verifyToken, async (req, res) => 
     await property.save();
 
     // Notify requester via socket
-    global._io.emit("rent-request-updated", {
-      productId: property._id,
-      requestId: request._id,
-      status: "accepted",
-      requester: request.requester,
-    });
+    // global._io.emit("rent-request-updated", {
+    //   productId: property._id,
+    //   requestId: request._id,
+    //   status: "accepted",
+    //   requester: request.requester,
+    // });
 
     res.json({ message: "Request accepted", request });
   } catch (err) {
@@ -238,12 +238,12 @@ router.post("/:id/rent-request/:reqId/reject", verifyToken, async (req, res) => 
     await property.save();
 
     // Notify requester via socket
-    global._io.emit("rent-request-updated", {
-      productId: property._id,
-      requestId: request._id,
-      status: "rejected",
-      requester: request.requester,
-    });
+    // global._io.emit("rent-request-updated", {
+    //   productId: property._id,
+    //   requestId: request._id,
+    //   status: "rejected",
+    //   requester: request.requester,
+    // });
 
     res.json({ message: "Request rejected", request });
   } catch (err) {
@@ -334,12 +334,12 @@ router.post("/:id/rent-request/:reqId/cancel", verifyToken, async (req, res) => 
 
     await property.save();
 
-    global._io.emit("rent-request-updated", {
-      productId: property._id,
-      requestId: request._id,
-      status: "cancelled",
-      requester: request.requester,
-    });
+    // global._io.emit("rent-request-updated", {
+    //   productId: property._id,
+    //   requestId: request._id,
+    //   status: "cancelled",
+    //   requester: request.requester,
+    // });
 
     res.json({ message: "Request cancelled", request });
   } catch (err) {
