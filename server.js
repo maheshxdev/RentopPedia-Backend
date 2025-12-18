@@ -18,12 +18,14 @@ const app = express();
 const server = http.createServer(app); // 👈 wrap express with HTTP server
 
 // Setup Socket.IO
-const io = new Server(server, {
-  cors: {
-    origin: true,
-    methods: ["GET", "POST"],
-    credentials: true,
-  },
+const io = new Server(server, 
+ {cors: {
+  origin: [
+    "http://localhost:5173",
+    "https://rentop-pedia-frontend-w8id.vercel.app"
+  ],
+  credentials: true
+},
 });
 
 // Global access to socket instance
@@ -31,12 +33,13 @@ global._io = io;
 
 // Middleware
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://rentop-pedia-frontend-w8id.vercel.app"
+  ],
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(
