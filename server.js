@@ -54,11 +54,11 @@ app.use("/api/user", userRoutes);
 //   })
 // .catch(err => console.error("❌ DB connection error:", err));
 
-let isConnected = false;
+
 async function connectToMongoDB() {
   try {
     await mongoose.connect(process.env.MONGO_URL);
-    isConnected = true;
+
    
       console.log("Connected to MongoDB");
   } catch (error) {
@@ -67,11 +67,9 @@ async function connectToMongoDB() {
 }
 
 app.use((req,res,next)=>{
-  if(!isConnected){
     connectToMongoDB();
-  }
   next();
 })
 
 
-module.exports=app;
+// module.exports=app;
