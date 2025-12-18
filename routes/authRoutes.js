@@ -51,11 +51,11 @@ router.post("/login", async (req, res) => {
     // Send token as httpOnly cookie
     // match cookie lifetime with JWT expiration
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // only https in production
-      sameSite: "lax", // or "none" if using different ports
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    }); 
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production", // make sure production = true
+  sameSite: "none", // important for cross-site (vercel frontend → vercel backend)
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+});
     res.json({ message: "Login successful" });
   } catch (err) {
     res.status(500).json({ message: "Login failed", error: err.message });
